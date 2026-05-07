@@ -1,0 +1,35 @@
+{
+  "name": "Garmin Daily Digest",
+  "version": "1.0.0",
+  "slug": "garmin_digest",
+  "description": "Generates and emails a daily health digest from Celeste's Garmin Connect data via Home Assistant",
+  "arch": ["amd64", "aarch64", "armv7", "armhf"],
+  "startup": "services",
+  "boot": "auto",
+  "init": false,
+  "homeassistant_api": true,
+  "ports": {
+    "8765/tcp": 8765
+  },
+  "ports_description": {
+    "8765/tcp": "HTTP trigger endpoint — POST /trigger to generate digest"
+  },
+  "schema": {
+    "recipient_email": "email",
+    "gmail_sender_display": "str",
+    "gmail_sender_address": "email",
+    "gmail_app_password": "password",
+    "claude_api_key": "password",
+    "history_days": "int(7,365)?",
+    "log_level": "list(info|debug)?"
+  },
+  "options": {
+    "recipient_email": "",
+    "gmail_sender_display": "Garmin Digest",
+    "gmail_sender_address": "",
+    "gmail_app_password": "",
+    "claude_api_key": "",
+    "history_days": 60,
+    "log_level": "info"
+  }
+}
