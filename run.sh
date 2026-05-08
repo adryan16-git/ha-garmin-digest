@@ -2,6 +2,7 @@
 
 bashio::log.info "Starting Garmin Daily Digest add-on..."
 
+export PYTHONPATH=/
 export SUPERVISOR_TOKEN="${SUPERVISOR_TOKEN}"
 export RECIPIENT_EMAIL="$(bashio::config 'recipient_email')"
 export GMAIL_SENDER_DISPLAY="$(bashio::config 'gmail_sender_display')"
