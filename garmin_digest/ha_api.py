@@ -53,10 +53,12 @@ def get_states():
 
 
 def get_history(start_iso, end_iso=None, entity_ids=None):
+    # Replace +00:00 with Z to avoid + being misinterpreted as a space in URLs
+    start_iso = start_iso.replace("+00:00", "Z")
     path = f"/history/period/{start_iso}"
     params = ["minimal_response=true", "no_attributes=true"]
     if end_iso:
-        params.append(f"end_time={end_iso}")
+        params.append(f"end_time={end_iso.replace('+00:00', 'Z')}")
     if entity_ids:
         params.append(f"filter_entity_id={','.join(entity_ids)}")
     if params:
