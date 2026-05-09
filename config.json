@@ -1,6 +1,6 @@
 {
   "name": "Garmin Daily Digest",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "slug": "garmin_digest",
   "description": "Generates and emails a daily health digest from Celeste's Garmin Connect data via Home Assistant",
   "arch": ["amd64", "aarch64", "armv7", "armhf"],

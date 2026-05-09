@@ -7,8 +7,8 @@ from datetime import datetime, timedelta, timezone
 
 import anthropic
 
-from garmin_digest import ha_api
-from garmin_digest.constants import CLAUDE_API_KEY, CLAUDE_MODEL, HISTORY_DAYS
+from garmin_digest import constants, ha_api
+from garmin_digest.constants import CLAUDE_MODEL
 
 logger = logging.getLogger(__name__)
 
@@ -172,7 +172,8 @@ def get_current_states() -> dict:
 
 def get_history_baseline() -> dict:
     """Fetch N-day history and compute per-sensor stats for Claude baseline context."""
-    start = (datetime.now(timezone.utc) - timedelta(days=HISTORY_DAYS)).isoformat()
+    history_days = constants.get("history_days", 60)
+    start = (datetime.now(timezone.utc) - timedelta(days=history_days)).isoformat()
     try:
         raw = ha_api.get_history(start, entity_ids=SENSORS)
         entity_histories = json.loads(raw)
@@ -276,7 +277,7 @@ def _build_prompt(today: dict, baseline: dict, today_date: str) -> str:
 
 
 def generate_narrative(today: dict, baseline: dict, today_date: str) -> str:
-    client = anthropic.Anthropic(api_key=CLAUDE_API_KEY)
+    client = anthropic.Anthropic(api_key=constants.get("claude_api_key", ""))
     message = client.messages.create(
         model=CLAUDE_MODEL,
         max_tokens=2000,
