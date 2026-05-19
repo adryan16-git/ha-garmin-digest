@@ -6,6 +6,7 @@ import os
 # HA API — supervisor provides token via environment
 SUPERVISOR_URL = "http://supervisor/core/api"
 SUPERVISOR_TOKEN = os.environ.get("SUPERVISOR_TOKEN", "")
+LOG_LEVEL = os.environ.get("LOG_LEVEL", "INFO").upper()
 
 # Trigger server
 TRIGGER_PORT = 8765
